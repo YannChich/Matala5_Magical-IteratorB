@@ -12,20 +12,23 @@ namespace ariel {
 class MagicalContainer {
 private:
     std::vector<int> Container;
-    std::vector<int> Ascending_Container;
-    std::vector<int> Prime_Container;
-    std::vector<int> Cross_Container;
+    // Vector of int* going to use this for each iterator 
+    std::vector<int*> Ascending_Container;
+    std::vector<int*> Prime_Container;
+    std::vector<int*> Cross_Container;
 
 /*
 Every time we are using the function addEelement we need to update the other Container
 We will update the Ascending_Container , Prime and Cross.
 */
-    void updateAscending();
-    void updatePrime();
-    void updateCross();
+    void updateAscending(int index);
+    void updatePrime(int number);
+
+// Return the index of an element in our vector
+    int getIndex(int number);
 
 // We are going to use the function isPrime for the Prime_Container
-    bool isPrime(int number);
+    static bool isPrime(int number);
 
 /*
 We dont want the same element in our Container , checking if he is there or not
@@ -34,6 +37,7 @@ Example : The vector is : 1 14 8 9 6 , we are trying the add now 6 : we are not 
     bool isExist(int number);
 
 public:
+
     void addElement(int element);
 
     void removeElement(int element);
@@ -48,6 +52,7 @@ public:
     private:
     // current it's like a ptr , we are going to use current to travel on our Container
     std::vector<int>::iterator current;
+    MagicalContainer* container;
 
     public:
     // Default constructor :
@@ -98,6 +103,7 @@ We are starting from the begin and the end we are going to do this until we are 
     class SideCrossIterator {
     private:
     std::vector<int>::iterator current;
+    MagicalContainer* container;
 
     public:
     SideCrossIterator();
@@ -126,6 +132,7 @@ We are goign to use a function IsPrime
     class PrimeIterator {
     private:
     std::vector<int>::iterator current;
+    MagicalContainer* container;
 
     public:
     PrimeIterator();
