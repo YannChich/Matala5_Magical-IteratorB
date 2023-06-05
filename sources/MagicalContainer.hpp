@@ -11,7 +11,7 @@ namespace ariel {
 
 class MagicalContainer {
 private:
-    std::vector<int> Container;
+    
     // Vector of int* going to use this for each iterator 
     std::vector<int*> Ascending_Container;
     std::vector<int*> Prime_Container;
@@ -37,7 +37,7 @@ Example : The vector is : 1 14 8 9 6 , we are trying the add now 6 : we are not 
     bool isExist(int number);
 
 public:
-
+    std::vector<int> Container;
     void addElement(int element);
 
     void removeElement(int element);
@@ -51,19 +51,19 @@ public:
    class AscendingIterator {
     private:
     // current it's like a ptr , we are going to use current to travel on our Container
-    std::vector<int>::iterator current;
+    std::vector<int*>::iterator current;
     MagicalContainer* container;
 
     public:
     // Default constructor :
-    AscendingIterator();
+    AscendingIterator() = default;
 
     // Parameter constructor
     AscendingIterator(MagicalContainer &Mcontainer);
 
     // Copy Constructor
     AscendingIterator(const AscendingIterator& other);
-
+    
     // We don't need a destructor for this class
     ~AscendingIterator() {}
 
