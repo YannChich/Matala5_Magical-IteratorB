@@ -72,7 +72,7 @@ TEST_CASE("AscendingIterator") {
         CHECK(it == it.end());
     }
 }
-/*
+
 // Test case for the SideCrossIterator
 TEST_CASE("SideCrossIterator") {
     MagicalContainer container;
@@ -128,6 +128,7 @@ TEST_CASE("PrimeIterator") {
         CHECK(it == it.end());
     }
 }
+
 //--------------------------------------------------------------
 // Test case for comparing iterators from the same container
 TEST_CASE("Comparing iterators from the same container") {
@@ -233,6 +234,7 @@ TEST_CASE("SideCrossIterator") {
         CHECK(it == it.end());
     }
 }
+/*
 //-------------------------------------------------------
 // Test case for comparing AscendingIterator
 TEST_CASE("Comparing AscendingIterator") {

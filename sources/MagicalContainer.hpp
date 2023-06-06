@@ -11,7 +11,7 @@ namespace ariel {
 
 class MagicalContainer {
 private:
-    
+    std::vector<int> Container;
     // Vector of int* going to use this for each iterator 
     std::vector<int*> Ascending_Container;
     std::vector<int*> Prime_Container;
@@ -21,14 +21,15 @@ private:
 Every time we are using the function addEelement we need to update the other Container
 We will update the Ascending_Container , Prime and Cross.
 */
-    void updateAscending(int index);
-    void updatePrime(int number);
+    void updateAscending();
+    void updatePrime();
+    void updateCross();
 
 // Return the index of an element in our vector
     int getIndex(int number);
 
 // We are going to use the function isPrime for the Prime_Container
-    static bool isPrime(int number);
+    //bool isPrime(int number);
 
 /*
 We dont want the same element in our Container , checking if he is there or not
@@ -37,14 +38,15 @@ Example : The vector is : 1 14 8 9 6 , we are trying the add now 6 : we are not 
     bool isExist(int number);
 
 public:
-    std::vector<int> Container;
     void addElement(int element);
 
     void removeElement(int element);
 
-    unsigned int size() const {
+    int size() const {
         return Container.size();
     }
+
+    bool isPrime(int number);
 // We dont need to create the operators for MagicalContainer because we are using vector from C++
 
     // The ascendingIterator going to allow traversal of elements in the MagicalContainer class in ascending order (sorted)
@@ -53,6 +55,7 @@ public:
     // current it's like a ptr , we are going to use current to travel on our Container
     std::vector<int*>::iterator current;
     MagicalContainer* container;
+    int position;
 
     public:
     // Default constructor :
@@ -102,14 +105,15 @@ We are starting from the begin and the end we are going to do this until we are 
 */
     class SideCrossIterator {
     private:
-    std::vector<int>::iterator current;
+    std::vector<int*>::iterator current;
     MagicalContainer* container;
+    int position;
 
     public:
-    SideCrossIterator();
+    SideCrossIterator() = default;
     SideCrossIterator(MagicalContainer &Mcontainer);
     SideCrossIterator(const SideCrossIterator& other);
-    ~SideCrossIterator();
+    ~SideCrossIterator() {}
 
     SideCrossIterator& operator=(const SideCrossIterator& other);
     bool operator==(const SideCrossIterator& other) const;
@@ -131,14 +135,15 @@ We are goign to use a function IsPrime
 */
     class PrimeIterator {
     private:
-    std::vector<int>::iterator current;
+    std::vector<int*>::iterator current;
     MagicalContainer* container;
+    int position;
 
     public:
-    PrimeIterator();
+    PrimeIterator() = default;
     PrimeIterator(MagicalContainer &Mcontainer);
     PrimeIterator(const PrimeIterator& other);
-    ~PrimeIterator();
+    ~PrimeIterator(){}
 
     PrimeIterator& operator=(const PrimeIterator& other);
     bool operator==(const PrimeIterator& other) const;
