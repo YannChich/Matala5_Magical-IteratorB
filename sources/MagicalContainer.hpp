@@ -6,7 +6,9 @@ You can use a dynamic array or any other suitable data structure for internal st
 
 #pragma once
 #include <vector> // dynamic array for internal storage
-
+/*
+Help with https://cplusplus.com/reference/vector/vector/
+*/
 namespace ariel {
 
 class MagicalContainer {
@@ -29,7 +31,7 @@ We will update the Ascending_Container , Prime and Cross.
     int getIndex(int number);
 
 // We are going to use the function isPrime for the Prime_Container
-    //bool isPrime(int number);
+    bool isPrime(int number);
 
 /*
 We dont want the same element in our Container , checking if he is there or not
@@ -42,11 +44,9 @@ public:
 
     void removeElement(int element);
 
-    int size() const {
+    size_t size() const {
         return Container.size();
     }
-
-    bool isPrime(int number);
 // We dont need to create the operators for MagicalContainer because we are using vector from C++
 
     // The ascendingIterator going to allow traversal of elements in the MagicalContainer class in ascending order (sorted)
@@ -59,7 +59,7 @@ public:
 
     public:
     // Default constructor :
-    AscendingIterator() = default;
+    AscendingIterator() = delete;
 
     // Parameter constructor
     AscendingIterator(MagicalContainer &Mcontainer);
@@ -69,6 +69,10 @@ public:
     
     // We don't need a destructor for this class
     ~AscendingIterator() {}
+
+    // move constructor and move operator
+    AscendingIterator(AscendingIterator&&) = default; 
+    AscendingIterator& operator=(AscendingIterator&&) = default; 
 
     // Operator = 
     AscendingIterator& operator=(const AscendingIterator& other);
@@ -110,10 +114,13 @@ We are starting from the begin and the end we are going to do this until we are 
     int position;
 
     public:
-    SideCrossIterator() = default;
+    SideCrossIterator() = delete;
     SideCrossIterator(MagicalContainer &Mcontainer);
     SideCrossIterator(const SideCrossIterator& other);
     ~SideCrossIterator() {}
+    SideCrossIterator(SideCrossIterator&&) = default; 
+    SideCrossIterator& operator=(SideCrossIterator&&) = default; 
+
 
     SideCrossIterator& operator=(const SideCrossIterator& other);
     bool operator==(const SideCrossIterator& other) const;
@@ -140,10 +147,14 @@ We are goign to use a function IsPrime
     int position;
 
     public:
-    PrimeIterator() = default;
+    PrimeIterator() = delete;
     PrimeIterator(MagicalContainer &Mcontainer);
     PrimeIterator(const PrimeIterator& other);
     ~PrimeIterator(){}
+    PrimeIterator(PrimeIterator&&) = default; 
+    PrimeIterator& operator=(PrimeIterator&&) = default; 
+
+    
 
     PrimeIterator& operator=(const PrimeIterator& other);
     bool operator==(const PrimeIterator& other) const;

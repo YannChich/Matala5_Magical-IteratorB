@@ -1,11 +1,13 @@
 #include "MagicalContainer.hpp"
 #include <math.h>
 #include <stdexcept> 
-
+/*
+Help with https://cplusplus.com/reference/vector/vector/
+*/
 using namespace std;
 using namespace ariel;
 
-
+// O(n)
 void MagicalContainer::updateAscending() {
     // I clean my vector of int* and update him
     this->Ascending_Container.clear();
@@ -15,7 +17,7 @@ void MagicalContainer::updateAscending() {
     }
 }
 
-// Prime is always sorted 
+// Prime is always sorted   O(n)
 void MagicalContainer::updatePrime() {
     this->Prime_Container.clear();
     for (size_t i = 0; i < Container.size(); i++)
@@ -26,7 +28,7 @@ void MagicalContainer::updatePrime() {
     }
 
 }
-// We need to hold the begin and the end and alternate with this
+// We need to hold the begin and the end and alternate with this  O(n)
 void MagicalContainer::updateCross() {
     this->Cross_Container.clear();
     size_t begin = 0;
@@ -52,9 +54,7 @@ void MagicalContainer::updateCross() {
     }
 }
 
-
-
-
+// O(n)
 int MagicalContainer::getIndex(int number) {
     if(isExist(number) == 0) return -1;
     for (size_t i = 0; i < this->size(); i++){
@@ -90,57 +90,60 @@ bool MagicalContainer::isExist(int number) {
 /*
 When i add a new element on my Container i want to update the different vector of int* that i have
 I want to check if the number is Prime / already exist
+O(n)
 */
 void MagicalContainer::addElement(int element) {
     // If the element already exists, return
-    if (isExist(element)) {
+    if (isExist(element)) {  // O(n)
         return;
     }
     
     // Find the appropriate position to insert the element
     auto begin = Container.begin();
-    for (; begin != Container.end(); ++begin) {
+    for (; begin != Container.end(); ++begin) {  //O(n)
         if (element < *begin) {
             break;
         }
     }
     
     // Insert the element at the appropriate position
-    Container.insert(begin, element);
+    Container.insert(begin, element); // Linear complecity 
     
     // Update the other containers
-    updateAscending();
-    updatePrime();
-    updateCross();
+    updateAscending(); // O(n)
+    updatePrime(); // O(n)
+    updateCross(); // O(n)
 }
 
 /*
 To simplify the implementation, we will ignore the case where an iterator points to an element while we delete that element. 
 In such a case, the iterator is no longer valid. There is no need to implement a solution for this situation; 
 it's up to the programmer not to use it.
+O(n)
 */
 void MagicalContainer::removeElement(int element) {
-    int index = getIndex(element);
+    int index = getIndex(element); // O(n)
     // trying to remove nothing
     if (index == -1) {
         throw runtime_error("The element not exist");
     }
 
     // Remove the element from the original container
-    Container.erase(Container.begin() + index);
-
+    // Linear on the number of elements erased (destructions) plus the number of elements after the last element deleted (moving). (cplusplus.com)
+    Container.erase(Container.begin() + index); 
+    // O(3n)
     updateAscending();
     updatePrime();
     updateCross();
     
-}
+}/*
+We are now going to create every function of each Iterator
+Every Iterator should work in O(1) in both memory and time complexity
+Each function going to use the function of ::vector like end() and begin()
+*/
 // current going to be a ptr of the first element of Ascending_Container
-MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer &Mcontainer) {
-    this->container = &Mcontainer;
-    // current point to the first element
+MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer &Mcontainer): container(&Mcontainer), position(0) {
     this->current = container->Ascending_Container.begin();
-    // 0 is the position of the first element
-    this->position = 0;
 }
 
 MagicalContainer::AscendingIterator::AscendingIterator(const AscendingIterator& other) {
@@ -199,7 +202,6 @@ MagicalContainer::AscendingIterator& MagicalContainer::AscendingIterator::operat
 MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::begin() {
 // we are using the constructor , he will return a new iterator that pointing to the begining of Ascending_vector
     AscendingIterator new_Iterator = AscendingIterator(*container);
-    new_Iterator.current = this->container->Ascending_Container.begin();
     return new_Iterator;
 }
 // Creating a new iterator and using the function end of ::vector
@@ -211,12 +213,8 @@ MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::end() {
 }
 
 // current going to be a ptr of the first element of Ascending_Container
-MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer &Mcontainer) {
-    this->container = &Mcontainer;
-    // current point to the first element
+MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer &Mcontainer): container(&Mcontainer),position(0) {
     this->current = container->Cross_Container.begin();
-    // 0 is the position of the first element
-    this->position = 0;
 }
 
 MagicalContainer::SideCrossIterator::SideCrossIterator(const SideCrossIterator& other) {
@@ -286,14 +284,9 @@ MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::end() {
 }
 
 // current going to be a ptr of the first element of Ascending_Container
-MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer &Mcontainer) {
-    this->container = &Mcontainer;
-    // current point to the first element
+MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer &Mcontainer): container(&Mcontainer),position(0) {
     this->current = container->Prime_Container.begin();
-    // 0 is the position of the first element
-    this->position = 0;
 }
-
 MagicalContainer::PrimeIterator::PrimeIterator(const PrimeIterator& other) {
     this->container = other.container;
     this->current = other.current;
