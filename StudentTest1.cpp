@@ -234,7 +234,7 @@ TEST_CASE("SideCrossIterator") {
         CHECK(it == it.end());
     }
 }
-/*
+
 //-------------------------------------------------------
 // Test case for comparing AscendingIterator
 TEST_CASE("Comparing AscendingIterator") {
@@ -392,6 +392,7 @@ TEST_CASE("Comparing SideCrossIterator") {
         CHECK_FALSE((itStart1 < itStart1));
     }
 }
+
 //---------------------------------------------------
 TEST_CASE("Iterator Increment Beyond End") {
     MagicalContainer container;
@@ -437,6 +438,7 @@ TEST_CASE("Iterator Increment Beyond End") {
         CHECK_THROWS_AS(++it, runtime_error);
     }
 }
+
 //checking that the iterators dont impact each other
 TEST_CASE("Multiple Iterators Test") {
     MagicalContainer container;
@@ -493,6 +495,7 @@ TEST_CASE("Multiple Iterators Test") {
         CHECK(*it2 == 7);
     }
 }
+
 // Test case for the AscendingIterator with negative and positive numbers
 TEST_CASE("AscendingIterator with Negative and Positive Numbers") {
     MagicalContainer container;
@@ -598,5 +601,5 @@ TEST_CASE("operator= throws when iterators are pointing at different containers"
         CHECK_THROWS_AS(it1 = it2, std::runtime_error);
    }
 }
-*/
+
 

@@ -150,6 +150,9 @@ MagicalContainer::AscendingIterator::AscendingIterator(const AscendingIterator& 
 }
 
 MagicalContainer::AscendingIterator& MagicalContainer::AscendingIterator::operator=(const AscendingIterator& other) {
+    if (this->container != other.container){
+        throw runtime_error("Cannot assign iterators from different containers");
+    }
     if (this != &other) {
         // copy the data members from the other object
         this->current = other.current;
@@ -183,6 +186,10 @@ int MagicalContainer::AscendingIterator::operator*() const {
 }
 
 MagicalContainer::AscendingIterator& MagicalContainer::AscendingIterator::operator++() {
+// if the iterator is already the end we can't use ++ and need to throw runtime error
+    if(this->current == this->container->Ascending_Container.end()){
+        throw runtime_error("You are already at the end");
+    }
 // we need to increment the iterator 
     ++current;
     ++position;
@@ -219,6 +226,9 @@ MagicalContainer::SideCrossIterator::SideCrossIterator(const SideCrossIterator& 
 }
 
 MagicalContainer::SideCrossIterator& MagicalContainer::SideCrossIterator::operator=(const SideCrossIterator& other) {
+    if (this->container != other.container){
+        throw runtime_error("Cannot assign iterators from different containers");
+    }
     if (this != &other) {
         // copy the data members from the other object
         this->current = other.current;
@@ -252,6 +262,9 @@ int MagicalContainer::SideCrossIterator::operator*() const {
 }
 
 MagicalContainer::SideCrossIterator& MagicalContainer::SideCrossIterator::operator++() {
+    if(this->current == this->container->Cross_Container.end()){
+        throw runtime_error("You are already at the end");
+    }
 // we need to increment the iterator 
     ++current;
     ++position;
@@ -288,6 +301,9 @@ MagicalContainer::PrimeIterator::PrimeIterator(const PrimeIterator& other) {
 }
 
 MagicalContainer::PrimeIterator& MagicalContainer::PrimeIterator::operator=(const PrimeIterator& other) {
+    if (this->container != other.container){
+        throw runtime_error("Cannot assign iterators from different containers");
+    }
     if (this != &other) {
         // copy the data members from the other object
         this->current = other.current;
@@ -321,6 +337,9 @@ int MagicalContainer::PrimeIterator::operator*() const {
 }
 
 MagicalContainer::PrimeIterator& MagicalContainer::PrimeIterator::operator++() {
+    if(this->current == this->container->Prime_Container.end()){
+        throw runtime_error("You are already at the end");
+    }
 // we need to increment the iterator 
     ++current;
     ++position;
